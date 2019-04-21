@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HTML5 Tetris</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <link rel='stylesheet' href='style.css' />
+    </head>
+    <body style="background-color:white;">
+        <audio id="clearsound" src="sound/pop.ogg" preload="auto"></audio>
+        <canvas width='300' height='600' style="background-color:white;"></canvas>
+
+        <span>point : <input type="text" id="point" value="0" readonly/></span>
+        <script src='js/tetris.js'></script>
+        <script src='js/controller.js'></script>
+        <script src='js/render.js'></script>
+        
+        	<table style="margin-left:auto; margin-right:auto; text-align:center;">
+        		<tr>
+        			<td style="width:50px; height:50px;"></td>
+        			<td style="width:50px; height:50px;"></td>
+        			<td onclick="keyPress('rotate');" style="color:white; background-color:black; border:1px solid black; font-size:25px; width:50px; height:50px; cursor:pointer;">ก่</td>
+							<td style="width:50px; height:50px;"></td>     
+							<td onclick="keyPress('drop');" style="color:white; background-color:black; border:1px solid black; font-size:25px; width:50px; height:50px; cursor:pointer;">drop</td>
+        		</tr>
+        		<tr>
+        			<td style="width:50px; height:50px;"></td>
+        			<td onclick="keyPress('left');" style="color:white; background-color:black; border:1px solid black; font-size:25px; width:50px; height:50px; cursor:pointer;">ก็</td>
+        			<td onclick="keyPress('down');" style="color:white; background-color:black; border:1px solid black; font-size:25px; width:50px; height:50px; cursor:pointer;">ก้</td>
+        			<td onclick="keyPress('right');" style="color:white; background-color:black; border:1px solid black; font-size:25px; width:50px; height:50px; cursor:pointer;">กๆ</td>
+        			<td style="width:50px; height:50px;"></td>
+        		</tr>
+        	</table>
+        	        <button id="playbutton" onclick="playButtonClicked();">Play</button>
+<!--        	
+        	<br><br><br>
+        	
+        <input type="button" name="upbox" value="ก่" onclick="keyPress('rotate');" style="font-size:100px; width:200px; height:200px;"/><br>
+        <input type="button" name="leftbox" value="ก็" onclick="keyPress('left');" style="font-size:100px; width:200px; height:200px;"/>
+        <input type="button" name="downbox" value="ก้" onclick="keyPress('down');" style="font-size:100px; width:200px; height:200px;"/>
+        <input type="button" name="rightbox" value="กๆ" onclick="keyPress('right');" style="font-size:100px; width:200px; height:200px;"/>
+-->        
+
+    </body>
+</html>
