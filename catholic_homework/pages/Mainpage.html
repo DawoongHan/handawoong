@@ -1,0 +1,277 @@
+<!doctype html>
+<html>
+<head>
+<title>À¥ÇÁ µµ¹ÚÀå</title>
+
+<script>
+	function setCookie(num)
+	{
+        	document.cookie = "test="+num+";"
+		document.getElementById("money").value = getCookie('test');
+	}
+ 
+	function getCookie(cname)
+	{
+		var name = cname + "=";
+		var ca = document.cookie.split(';');
+		
+		for(var i=0; i<ca.length;i++)
+		{
+			var c = ca[i];
+	
+			while(c.charAt(0)==' ')
+				c = c.substring(1);
+			if(c.indexOf(name) == 0)
+				return c.substring(name.length,c.length);
+		}
+		return "";
+	}
+
+
+	function checkCookie(cname)
+	{
+		document.getElementById("money").value = getCookie('test');
+	}
+
+</script>
+
+<style>
+
+body{
+background:url('../images/check.jpg');
+margin:0;
+padding:0;
+}
+
+header{
+border:3px solid black;
+position:relative;
+width:960px;
+height:110px;
+margin:50px 0 0 -480px;
+top:50%;
+left:50%;
+text-align:center;
+background-color:#424242;
+font : bold 100px '±Ã¼­Ã¼';
+}
+
+.rainbow1{
+animation: 1s myanim1 linear;
+animation-iteration-count:infinite;
+}
+
+@keyframes myanim1
+{
+0% {color:red;}
+25% {color:orange;}
+50% {color:yellow;}
+75% {color:blue;}
+100% {color:red;}
+}
+
+.rainbow2{
+animation: 1s myanim2 linear;
+animation-iteration-count:infinite;
+}
+
+@keyframes myanim2
+{
+0% {color:orange;}
+25% {color:yellow;}
+50% {color:blue;}
+75% {color:red;}
+100% {color:orange;}
+}
+
+.rainbow3{
+animation: 1s myanim3 linear;
+animation-iteration-count:infinite;
+}
+
+@keyframes myanim3
+{
+0% {color:yellow;}
+25% {color:blue;}
+50% {color:red;}
+75% {color:orange;}
+100% {color:yellow;}
+}
+
+.rainbow4{
+animation: 1s myanim4 linear;
+animation-iteration-count:infinite;
+}
+
+@keyframes myanim4
+{
+0% {color:blue;}
+25% {color:red;}
+50% {color:orange;}
+75% {color:yellow;}
+100% {color:blue;}
+}
+
+info{
+display:table-cell;
+background-color:#424242;
+position:absolute;
+border:3px solid black;
+top:200px;
+left:50%;
+width:960px;
+height:720px;
+margin: 0 0 0 -480px;
+}
+
+leftgamebox{
+color:black;
+display:table-cell;
+width:435px;
+height:315px;
+border:3px solid black;
+float:left;
+margin : 25px 0 0 25px;
+font : bold 50px '±Ã¼­Ã¼';
+}
+
+.fcard{
+background:url('../images/Fcard2.png');
+color:#FDFFD5;
+}
+
+.fcard:hover{
+background:url('../images/Fcard.png');
+color:black;
+}
+
+.card{
+background:url('../images/card2.png');
+color:#FDFFD5;
+
+}
+
+.card:hover{
+background:url('../images/card.png');
+color:black;
+}
+
+rightgamebox{
+color:black;
+display:table-cell;
+width:435px;
+height:200px;
+border:3px solid black;
+float:right;
+margin:25px 25px 0px 0;
+text-decoration:none;
+font : bold 50px '±Ã¼­Ã¼';
+}
+
+rightgamebox:hover{
+background-color:black;
+color:#FDFFD5;
+}
+
+.dice{
+background:url('../images/dice2.png');
+color:#FDFFD5;
+
+}
+
+.dice:hover{
+background:url('../images/dice.png');
+color:black;
+}
+
+.updown{
+background:url('../images/updown2.png');
+color:#FDFFD5;
+}
+
+.updown:hover{
+background:url('../images/updown.png');
+color:black;
+}
+
+.baseball{
+background:url('../images/baseball2.png');
+color:#FDFFD5;
+}
+
+.baseball:hover{
+background:url('../images/baseball.png');
+color:black;
+}
+
+box{
+cursor:pointer;
+font : bold 30px ¸¼Àº°íµñ;
+width:70px;
+height:70px;
+position:absolute;
+}
+
+.spin{
+animation: 11s myanim5;
+animation-iteration-count:infinite;
+}
+
+.spin2{
+animation: 19s myanim5;
+animation-iteration-count:infinite;
+}
+
+.spin3{
+animation: 11s myanim6;
+animation-iteration-count:infinite;
+}
+
+.spin4{
+animation: 19s myanim6;
+animation-iteration-count:infinite;
+}
+
+@keyframes myanim5
+{
+0% {background-color:red; top:10%; left:90%; transform:rotate(45deg);}
+25% {background-color:orange; top:10%; left:90%; transform:rotate(405deg);}
+50% {background-color:yellow; top:10%; left:90%; transform:rotate(765deg);}
+75% {background-color:coral; top:10%; left:90%; transform:rotate(1125deg);}
+100% {background-color:red; top:10%; left:90%; transform:rotate(1485deg);}
+}
+
+@keyframes myanim6
+{
+0% {background-color:red; top:10%; left:10%; transform:rotate(45deg);}
+25% {background-color:orange; top:10%; left:10%; transform:rotate(405deg);}
+50% {background-color:yellow; top:10%; left:10%; transform:rotate(765deg);}
+75% {background-color:coral; top:10%; left:10%; transform:rotate(1125deg);}
+100% {background-color:red; top:10%; left:10%; transform:rotate(1485deg);}
+}
+
+</style></head>
+<body>
+<box class="spin" onclick="location.href = 'mydog.html'"></box>
+<box class="spin2" onclick="location.href = 'mydog.html'">¾Ù¹üº¸±â</box>
+<box class="spin3" onclick="location.href = '../mypage.html'"></box>
+<box class="spin4" onclick="location.href = '../mypage.html'">¸ÞÀÎÈ­¸é</box>
+
+³»µ· : <input id="money" style="width:100px; height:16px; font: bold 15px ¸¼Àº°íµñ; color:white; background:#424242; border:none;" readonly></input>
+<input type="button" value="³»µ·È®ÀÎ" onclick="checkCookie('test')">
+<input type="button" value="¸Ó´Ï ÃÊ±âÈ­" onclick="setCookie(1000)">
+<iframe width="0" height="0" src="https://www.youtube.com/embed/_pjLtpaxFZA?start=15&autoplay=1" frameborder="0"></iframe>
+<a href="Mainpage.html" style="text-decoration:none; color:white; text-align:center;"><header>
+<span class="rainbow4">¢À</span><span class="rainbow1">¿Ï</span><span class="rainbow3">¢¾</span><span class="rainbow2">Àü</span><span class="rainbow1">¢¿</span><span class="rainbow3">´ë</span><span class="rainbow2">¢½</span><span class="rainbow4">¹Ú</span><span class="rainbow1">$</span>
+</header></a>
+
+<info>
+	<a href="flowercard.html"><leftgamebox class="fcard">2Àå ¼¸´Ù</leftgamebox></a>
+	<a href="number.html"><rightgamebox class="dice">È¦Â¦</rightgamebox></a>
+	<a href="updown.html"><rightgamebox class="updown">¾÷´Ù¿î</rightgamebox></a>
+	<a href="blackjack.html"><leftgamebox class="card">ºí·¢Àè</leftgamebox></a>
+	<a href="baseball.html"><rightgamebox class="baseball">¼ýÀÚ¾ß±¸</rightgamebox></a>
+</info>
+
+</body>
+</html>

@@ -1,0 +1,915 @@
+<!doctype html>
+<html>
+<head>
+<title>Flower Card</title>
+
+<script>
+	function off()
+	{
+		btn = document.getElementById('btn');
+		btn.disabled = "disables";
+	}
+
+	function setCookie(num)
+	{
+        	document.cookie = "test="+num+";"
+		document.getElementById("money").value = getCookie('test');
+	}
+ 	
+	function getCookie(cname)
+	{
+		var name = cname + "=";
+		var ca = document.cookie.split(';');
+		
+		for(var i=0; i<ca.length;i++)
+		{
+			var c = ca[i];
+	
+			while(c.charAt(0)==' ')
+				c = c.substring(1);
+			if(c.indexOf(name) == 0)
+				return c.substring(name.length,c.length);
+		}
+		return "";
+	}
+
+	function usingCookie(cname)
+	{
+		var a = parseInt(getCookie(cname)) - 100;
+		setCookie(a);
+	}
+
+	function earnCookie(cname)
+	{
+		var a = parseInt(getCookie(cname)) + 100;
+		setCookie(a);
+	}
+	function checkCookie(cname)
+	{
+		document.getElementById("money").value = getCookie('test')
+	}
+
+/*
+¸ÁÅë = 0
+1~9²ý = 1~9
+¼¼·ú = 10
+Àå»ç = 11
+Àå»æ = 12
+±¸»æ = 13
+µ¶»ç = 14
+¾Ë¸® = 15
+1~9¶¯ = 16~24
+¶¯ÀâÀÌ = 25
+10¶¯ = 26
+18±¤¶¯ = 27
+13±¤¶¯ = 27
+±¤¶¯ÀâÀÌ = 28
+38±¤¶¯ = 29
+*/
+
+	var cnt = 0;
+	var fnum = new Array("0", "0");
+	var snum = new Array("0", "0");
+	var fuser = new Array("0", "0");
+	var suser = new Array("0", "0");
+	var numresult;
+	var userresult;
+	var numcard;
+	var usercard;
+
+	do{
+		cnt = 0;
+
+		fnum[0] = Math.floor(Math.random()*10 + 1);
+		fnum[1] = Math.floor(Math.random()*2 + 1);
+		
+		snum[0] = Math.floor(Math.random()*10 + 1);
+		snum[1] = Math.floor(Math.random()*2 + 1);
+
+		fuser[0] = Math.floor(Math.random()*10 + 1);
+		fuser[1] = Math.floor(Math.random()*2 + 1);
+		
+		suser[0] = Math.floor(Math.random()*10 + 1);
+		suser[1] = Math.floor(Math.random()*2 + 1);
+
+	
+		if(fnum[0]==snum[0] && fnum[1]==snum[1])
+		{
+			cnt++;	
+		}
+		if(fnum[0]==fuser[0] && fnum[1]==fuser[1])
+		{
+			cnt++;	
+		}
+		if(fnum[0]==suser[0] && fnum[1]==suser[1])
+		{
+			cnt++;	
+		}
+		if(snum[0]==fuser[0] && snum[1]==fuser[1])
+		{
+			cnt++;	
+		}
+		if(snum[0]==suser[0] && snum[1]==suser[1])
+		{
+			cnt++;	
+		}
+		if(fuser[0]==suser[0] && fuser[1]==suser[1])
+		{
+			cnt++;	
+		}
+		
+	}while(cnt>0);
+	
+	if(fnum[0]+snum[0]==2) // 1¶¯
+	{
+		numresult = 16;
+		numcard = "1¶¯"; 
+	}
+	else if(fnum[0]+snum[0]==3) // ¾Ë¸®
+	{
+		numresult = 15;
+		numcard = "¾Ë¸®";
+	}
+	else if(fnum[0]+snum[0]==4) // 2¶¯, ÀÏ»ï±¤¶¯, 4²ý
+	{
+		if(fnum[0]==2)
+		{
+			numresult = 17;
+			numcard = "2¶¯";
+		}
+		else if(fnum[0]==1 && fnum[1]==1 && snum[1]==1)
+		{
+			numresult = 27;
+			numcard = "ÀÏ»ï±¤¶¯";
+		}
+		else if(fnum[0]==3 && fnum[1]==1 && snum[1]==1)
+		{
+			numresult = 27;
+			numcard = "ÀÏ»ï±¤¶¯";
+		}
+		else
+		{
+			numresult = 4;
+			numcard = "³×²ý";
+		}
+	}
+	else if(fnum[0]+snum[0]==5) // µ¶»ç, 5²ý
+	{
+		if(fnum[0]==1 || snum[0]==1)
+		{
+			numresult = 14;
+			numcard = "µ¶»ç";
+		}
+		else
+		{
+			numresult = 5;
+			numcard = "´Ù¼¸²ý";
+		}
+	}
+	else if(fnum[0]+snum[0]==6) // 3¶¯, 6²ý
+	{
+		if(fnum[0]==3)
+		{
+			numresult = 18;
+			numcard = "3¶¯";
+		}
+		else
+		{
+			numresult = 6;
+			numcard = "¿©¼¸²ý";
+		}
+	}
+	else if(fnum[0]+snum[0]==7) // 7²ý
+	{
+		numresult = 7;
+		numcard = "ÀÏ°ö²ý";
+	}
+	else if(fnum[0]+snum[0]==8) // 4¶¯, 8²ý
+	{
+		if(fnum[0]==4)
+		{
+			numresult = 19;
+			numcard = "4¶¯";		
+		}
+		else
+		{
+			numresult = 8;
+			numcard = "¿©´ü²ý";
+		}
+	}
+	else if(fnum[0]+snum[0]==9) // 9²ý
+	{
+		if(fnum[0]==1 && fnum[1]==1 && snum[1]==1)
+		{
+			numresult = 27;
+			numcard = "ÀÏÆÈ±¤¶¯";
+		}
+		else if(fnum[0]==8 && fnum[1]==1 && snum[1]==1)
+		{
+			numresult = 27;
+			numcard = "ÀÏÆÈ±¤¶¯";
+		}
+		else
+		{
+			numresult = 9;
+			numcard = "°©¿À";
+		}
+	}
+	else if(fnum[0]+snum[0]==10) // 5¶¯,¼¼·ú,¶¯ÀâÀÌ,±¸»æ,¸ÁÅë
+	{
+		if(fnum[0]==5)
+		{
+			numresult = 20;
+			numcard = "5¶¯";
+		}
+		else if(fnum[0]==4 || snum[0]==4)
+		{
+			numresult = 10;
+			numcard = "¼¼·ú";
+		}
+		else if((fnum[0]==3 || fnum[0]==7) && (fuser[0]==suser[0]) && fuser[0]<10)
+		{
+			numresult = 25;
+			numcard = "¶¯ÀâÀÌ";
+		}
+		else if(fnum[0]==9 || fnum[0]==1)
+		{
+			numresult = 13;
+			numcard = "±¸»æ";
+		}
+		else
+		{
+			numresult = 0;
+			numcard = "¸ÁÅë";
+		}
+	}
+	else if(fnum[0]+snum[0]==11) // Àå»æ, ¾ÏÇà¾î»ç, 38±¤¶¯, 1²ý
+	{
+		if(fnum[0]==10 || fnum[0]==1)
+		{
+			numresult = 12;
+			numcard = "Àå»æ";
+		}
+		else if(fuser[0]==1 && fuser[1]==1 && suser[0]==3 && suser[1]==1 && ((fnum[0]==4 && fnum[1]==1 && fnum[1]==1) || (fnum[0]==7 && fnum[1]==1 && snum[1]==1)))
+		{
+			numresult = 28;
+			numcard = "¾ÏÇà¾î»ç";
+		}
+		else if(fuser[0]==3 && fuser[1]==1 && suser[0]==1 && suser[1]==1 && ((fnum[0]==4 && fnum[1]==1 && fnum[1]==1) || (fnum[0]==7 && fnum[1]==1 && snum[1]==1)))
+		{
+			numresult = 28;
+			numcard = "¾ÏÇà¾î»ç";
+		}
+		else if(fuser[0]==1 && fuser[1]==1 && suser[0]==8 && suser[1]==1 && ((fnum[0]==4 && fnum[1]==1 && fnum[1]==1) || (fnum[0]==7 && fnum[1]==1 && snum[1]==1)))
+		{
+			numresult = 28;
+			numcard = "¾ÏÇà¾î»ç";
+		}
+		else if(fuser[0]==8 && fuser[1]==1 && suser[0]==1 && suser[1]==1 && ((fnum[0]==4 && fnum[1]==1 && fnum[1]==1) || (fnum[0]==7 && fnum[1]==1 && snum[1]==1)))
+		{
+			numresult = 28;
+			numcard = "¾ÏÇà¾î»ç";
+		}
+		else if(fnum[0]==3 && fnum[1]==1 && snum[1]==1)
+		{
+			numresult = 29;
+			numcard = "»ïÆÈ±¤¶¯";
+		}
+		else if(snum[0]==3 && fnum[1]==1 && snum[1]==1)
+		{
+			numresult = 29;
+			numcard = "»ïÆÈ±¤¶¯";
+		}
+		else
+		{
+			numresult=1;
+			numcard = "ÇÑ²ý";
+		}
+	}
+	else if(fnum[0]+snum[0]==12) // 6¶¯, µÎ²ý
+	{
+		if(fnum[0]==6)
+		{
+			numresult = 21;
+			numcard = "6¶¯";
+		}
+		else
+		{
+			numresult = 2;
+			numcard = "µÎ²ý";
+		}
+	}
+	else if(fnum[0]+snum[0]==13) // ¼¼²ý
+	{
+		numresult = 3;
+		numcard = "¼¼²ý";
+	}
+	else if(fnum[0]+snum[0]==14) // 7¶¯, Àå»ç, ³×²ý
+	{
+		if(fnum[0]==7)
+		{
+			numresult = 22;
+			numcard = "7¶¯";
+		}
+		else if(fnum[0]==10 || fnum[0]==4)
+		{
+			numresult = 11;
+			numcard = "Àå»ç";
+		}
+		else
+		{
+			numresult = 4;
+			numcard = "³×²ý";
+		}
+	}
+	else if(fnum[0]+snum[0]==15) // ´Ù¼¸²ý
+	{
+		numresult = 5;
+		numcard = "´Ù¼¸²ý";
+	}
+	else if(fnum[0]+snum[0]==16) // 8¶¯, ¿©¼¸²ý
+	{
+		if(fnum[0]==8)
+		{
+			numresult = 23;
+			numcard = "8¶¯";
+		}
+		else
+		{
+			numresult = 6;
+			numcard = "¿©¼¸²ý";
+		}
+	}
+	else if(fnum[0]+snum[0]==17) // ÀÏ°ö²ý
+	{
+		numresult = 7;
+		numcard = "ÀÏ°ö²ý";
+	}
+	else if(fnum[0]+snum[0]==18) // 9¶¯, ¿©´ü²ý
+	{
+		if(fnum[0]==9)
+		{
+			numresult = 24;
+			numcard = "9¶¯";
+		}
+		else
+		{
+			numresult = 8;
+			numcard = "¿©´ü²ý";
+		}
+	}
+	else if(fnum[0]+snum[0]==19) // ¾ÆÈ©²ý
+	{
+		numresult = 9;
+		numcard = "°©¿À";
+	}
+	else if(fnum[0]+snum[0]==20) // Àå¶¯
+	{
+		numresult = 26;
+		numcard = "Àå¶¯";
+	}
+//******************************À¯Àú**************************************
+
+	if(fuser[0]+suser[0]==2) // 1¶¯
+	{
+		userresult = 16;
+		usercard = "1¶¯";
+	}
+	else if(fuser[0]+suser[0]==3) // ¾Ë¸®
+	{
+		userresult = 15;
+		usercard = "¾Ë¸®";
+	}
+	else if(fuser[0]+suser[0]==4) // 2¶¯, 4²ý
+	{
+		if(fuser[0]==2)
+		{
+			userresult = 17;
+			usercard = "2¶¯";
+		}
+		else if(fuser[0]==1 && fuser[1]==1 && suser[1]==1)
+		{
+			userresult = 27;
+			usercard = "ÀÏ»ï±¤¶¯";
+		}
+		else if(fuser[0]==3 && fuser[1]==1 && suser[1]==1)
+		{
+			userresult = 27;
+			usercard = "ÀÏ»ï±¤¶¯";
+		}
+		else
+		{
+			userresult = 4;
+			usercard = "³×²ý";
+		}
+	}
+	else if(fuser[0]+suser[0]==5) // µ¶»ç, 5²ý
+	{
+		if(fuser[0]==1 || suser[0]==1)
+		{
+			userresult = 14;
+			usercard = "µ¶»ç";
+		}
+		else
+		{
+			userresult = 5;
+			usercard = "´Ù¼¸²ý";
+		}
+	}
+	else if(fuser[0]+suser[0]==6) // 3¶¯, 6²ý
+	{
+		if(fuser[0]==3)
+		{
+			userresult = 18;
+			usercard = "3¶¯";
+		}
+		else
+		{
+			userresult = 6;
+			usercard = "¿©¼¸²ý";
+		}
+	}
+	else if(fuser[0]+suser[0]==7) // 7²ý
+	{
+		userresult = 7;
+		usercard = "ÀÏ°ö²ý";
+	}
+	else if(fuser[0]+suser[0]==8) // 4¶¯, 8²ý
+	{
+		if(fuser[0]==4)
+		{
+			userresult = 19;
+			usercard = "4¶¯";
+		}
+		else
+		{
+			userresult = 8;
+			usercard = "¿©´ü²ý";
+		}
+	}
+	else if(fuser[0]+suser[0]==9) // 9²ý
+	{
+		if(fuser[0]==1 && fuser[1]==1 && suser[1]==1)
+		{
+			userresult=27;
+			usercard = "ÀÏÆÈ±¤¶¯";
+		}
+		else if(fuser[0]==8 && fuser[1]==1 && suser[1]==1)
+		{
+			userresult=27;
+			usercard = "ÀÏÆÈ±¤¶¯";
+		}
+		else
+		{
+			userresult = 9;
+			usercard = "°©¿À";
+		}
+	}
+	else if(fuser[0]+suser[0]==10) // 5¶¯,¼¼·ú,¶¯ÀâÀÌ,±¸»æ,¸ÁÅë
+	{
+		if(fuser[0]==5)
+		{
+			userresult = 20;
+			usercard = "5¶¯";
+		}
+		else if(fuser[0]==4 || suser[0]==4)
+		{
+			userresult = 10;
+			usercard = "¼¼·ú";
+		}
+		else if((fuser[0]==3 || fuser[0]==7) && (fnum[0]==snum[0]) && fnum[0]<10)
+		{
+			numresult = 25;
+			usercard = "¶¯ÀâÀÌ";
+		}
+		else if(fuser[0]==9 || fuser[0]==1)
+		{
+			userresult = 13;
+			usercard = "±¸»æ";
+		}
+		else
+		{
+			userresult = 0;
+			usercard = "¸ÁÅë";
+		}
+	}
+	else if(fuser[0]+suser[0]==11) // Àå»æ, ¾ÏÇà¾î»ç, 38±¤¶¯, 1²ý
+	{
+		if(fuser[0]==10 || fuser[0]==1)
+		{
+			userresult = 12;
+			usercard = "Àå»æ";
+		}
+		else if(fnum[0]==1 && fnum[1]==1 && snum[0]==3 && snum[1]==1 && ((fuser[0]==4 && fuser[1]==1 && fuser[1]==1) || (fuser[0]==7 && fuser[1]==1 && suser[1]==1)))
+		{
+			userresult = 28;
+			usercard = "¾ÏÇà¾î»ç";
+		}
+		else if(fnum[0]==3 && fnum[1]==1 && snum[0]==1 && snum[1]==1 && ((fuser[0]==4 && fuser[1]==1 && fuser[1]==1) || (fuser[0]==7 && fuser[1]==1 && suser[1]==1)))
+		{
+			userresult = 28;
+			usercard = "¾ÏÇà¾î»ç";
+		}
+		else if(fnum[0]==1 && fnum[1]==1 && snum[0]==8 && snum[1]==1 && ((fuser[0]==4 && fuser[1]==1 && fuser[1]==1) || (fuser[0]==7 && fuser[1]==1 && suser[1]==1)))
+		{
+			userresult = 28;
+			usercard = "¾ÏÇà¾î»ç";
+		}
+		else if(fnum[0]==8 && fnum[1]==1 && snum[0]==1 && snum[1]==1 && ((fuser[0]==4 && fuser[1]==1 && fuser[1]==1) || (fuser[0]==7 && fuser[1]==1 && suser[1]==1)))
+		{
+			userresult = 28;
+			usercard = "¾ÏÇà¾î»ç";
+		}
+		else if(fuser[0]==3 && fuser[1]==1 && suser[1]==1)
+		{
+			userresult = 29;
+			usercard = "»ïÆÈ±¤¶¯";
+		}
+		else if(suser[0]==3 && fuser[1]==1 && suser[1]==1)
+		{
+			userresult = 29;
+			usercard = "»ïÆÈ±¤¶¯";
+		}
+		else
+		{
+			userresult=1;
+			usercard = "ÇÑ²ý";
+		}
+	}
+	else if(fuser[0]+suser[0]==12) // 6¶¯, µÎ²ý
+	{
+		if(fuser[0]==6)
+		{
+			userresult = 21;
+			usercard = "6¶¯";
+		}
+		else
+		{
+			userresult = 2;
+			usercard = "µÎ²ý";
+		}
+	}
+	else if(fuser[0]+suser[0]==13) // ¼¼²ý
+	{
+		userresult = 3;
+		usercard = "¼¼²ý";
+	}
+	else if(fuser[0]+suser[0]==14) // 7¶¯, Àå»ç, ³×²ý
+	{
+		if(fuser[0]==7)
+		{
+			userresult = 22;
+			usercard = "7¶¯";
+		}
+		else if(fuser[0]==10 || fuser[0]==4)
+		{
+			userresult = 11;
+			usercard = "Àå»ç";
+		}
+		else
+		{
+			userresult = 4;
+			usercard = "³×²ý";
+		}
+	}
+	else if(fuser[0]+suser[0]==15) // ´Ù¼¸²ý
+	{
+		userresult = 5;
+		usercard = "´Ù¼¸²ý";
+	}
+	else if(fuser[0]+suser[0]==16) // 8¶¯, ¿©¼¸²ý
+	{
+		if(fuser[0]==8)
+		{
+			userresult = 23;
+			usercard = "8¶¯";
+		}
+		else
+		{
+			userresult = 6;
+			usercard = "¿©¼¸²ý";
+		}
+	}
+	else if(fuser[0]+suser[0]==17) // ÀÏ°ö²ý
+	{
+		userresult = 7;
+		usercard = "ÀÏ°ö²ý";
+	}
+	else if(fuser[0]+suser[0]==18) // 9¶¯, ¿©´ü²ý
+	{
+		if(fuser[0]==9)
+		{
+			userresult = 24;
+			usercard = "9¶¯";
+		}
+		else
+		{
+			userresult = 8;
+			usercard = "¿©´ü²ý";
+		}
+	}
+	else if(fuser[0]+suser[0]==19) // ¾ÆÈ©²ý
+	{
+		userresult = 9;
+		usercard = "°©¿À";
+	}
+	else if(fuser[0]+suser[0]==20) // Àå¶¯
+	{
+		userresult = 26;
+		usercard = "Àå¶¯";
+	}
+
+	var fnumimg = "../fcard/"+(fnum[0].toString()+fnum[1].toString())+".png";	
+	var snumimg = "../fcard/"+(snum[0].toString()+snum[1].toString())+".png";
+	var fuserimg = "../fcard/"+(fuser[0].toString()+fuser[1].toString())+".png";
+	var suserimg = "../fcard/"+(suser[0].toString()+suser[1].toString())+".png";
+
+	function guess()
+	{
+		document.getElementById("fnumimg").src = fnumimg;
+		document.getElementById("snumimg").src = snumimg;
+		document.getElementById("fuserimg").src = fuserimg;
+		document.getElementById("suserimg").src = suserimg;
+		document.getElementById("numcard").value = numcard;
+		document.getElementById("usercard").value = usercard;
+
+		if(numresult==userresult)
+		{
+			document.getElementById("result").value = "ºñ°å½À´Ï´Ù. 2ÃÊÈÄ »õ·Î°íÄ§µË´Ï´Ù.";
+			checkCookie('test');
+		}
+		else if (numresult > userresult)
+		{
+			document.getElementById("result").value = "´ç½ÅÀÌ Á³½À´Ï´Ù. 2ÃÊÈÄ »õ·Î°íÄ§µË´Ï´Ù.";
+			usingCookie('test');
+		}
+		else if (numresult < userresult)
+		{
+			document.getElementById("result").value = "´ç½ÅÀÌ ÀÌ°å½À´Ï´Ù. 2ÃÊÈÄ »õ·Î°íÄ§µË´Ï´Ù.";
+			earnCookie('test');
+		}
+		setTimeout("location.href='flowercard.html'",2000);
+		off();
+	}
+</script>
+
+
+<style>
+
+body{
+background:url('../images/check.jpg');
+margin:0;
+padding:0;
+}
+
+header{
+border:3px solid black;
+position:relative;
+width:960px;
+height:110px;
+margin:50px 0 0 -480px;
+top:50%;
+left:50%;
+text-align:center;
+background-color:#424242;
+font : bold 110px '±Ã¼­Ã¼';
+color:black;
+}
+
+.rainbow1{
+animation: 1s myanim1 linear;
+animation-iteration-count:infinite;
+}
+
+@keyframes myanim1
+{
+0% {color:red;}
+25% {color:orange;}
+50% {color:yellow;}
+75% {color:blue;}
+100% {color:red;}
+}
+
+.rainbow2{
+animation: 1s myanim2 linear;
+animation-iteration-count:infinite;
+}
+
+@keyframes myanim2
+{
+0% {color:orange;}
+25% {color:yellow;}
+50% {color:blue;}
+75% {color:red;}
+100% {color:orange;}
+}
+
+.rainbow3{
+animation: 1s myanim3 linear;
+animation-iteration-count:infinite;
+}
+
+@keyframes myanim3
+{
+0% {color:yellow;}
+25% {color:blue;}
+50% {color:red;}
+75% {color:orange;}
+100% {color:yellow;}
+}
+
+.rainbow4{
+animation: 1s myanim4 linear;
+animation-iteration-count:infinite;
+}
+
+@keyframes myanim4
+{
+0% {color:blue;}
+25% {color:red;}
+50% {color:orange;}
+75% {color:yellow;}
+100% {color:blue;}
+}
+
+info{
+display:table-cell;
+background-color:#424242;
+position:absolute;
+border:3px solid black;
+top:200px;
+left:50%;
+width:910px;
+height:720px;
+margin: 0 0 0 -480px;
+padding: 25px 25px 0 25px;
+}
+
+gamebox{
+border:3px solid black;
+color:black;
+display:table-cell;
+width:910px;
+height:515px;
+border:3px solid black;
+font:bold 50px '±Ã¼­Ã¼';
+margin:25px 25px 0 25px
+}
+
+leftbox{
+border:3px solid black;
+color:black;
+display:table-cell;
+width:735px;
+height:140px;
+border:3px solid black;
+float:left;
+margin : 25px 0 25px 0;
+font : bold 50px '±Ã¼­Ã¼';
+}
+
+rightbox{
+border:3px solid black;
+color:black;
+display:table-cell;
+width:135px;
+height:140px;
+float:right;
+margin : 25px 0 25px 25px;
+}
+
+rightbox:hover{opacity:0.4;}
+
+div{
+border:2px solid black;
+width:169px;
+height:128px;
+margin:5px 5px 5px 5px;
+float:left;
+}
+
+.card{
+background:url('../simages/smallcard2.png');
+color:#FDFFD5;
+
+}
+
+.card:hover{
+background:url('../simages/smallcard.png');
+color:black;
+}
+
+.dice{
+background:url('../simages/smalldice2.png');
+color:#FDFFD5;
+
+}
+
+.dice:hover{
+background:url('../simages/smalldice.png');
+color:black;
+}
+
+.updown{
+background:url('../simages/smallupdown2.png');
+color:#FDFFD5;
+}
+
+.updown:hover{
+background:url('../simages/smallupdown.png');
+color:black;
+}
+
+.baseball{
+background:url('../simages/smallbaseball2.png');
+color:#FDFFD5;
+}
+
+.baseball:hover{
+background:url('../simages/smallbaseball.png');
+color:black;
+}
+
+box{
+cursor:pointer;
+font : bold 30px ¸¼Àº°íµñ;
+width:70px;
+height:70px;
+position:absolute;
+}
+
+.spin{
+animation: 11s myanim5;
+animation-iteration-count:infinite;
+}
+
+.spin2{
+animation: 19s myanim5;
+animation-iteration-count:infinite;
+}
+
+.spin3{
+animation: 11s myanim6;
+animation-iteration-count:infinite;
+}
+
+.spin4{
+animation: 19s myanim6;
+animation-iteration-count:infinite;
+}
+
+@keyframes myanim5
+{
+0% {background-color:red; top:10%; left:90%; transform:rotate(45deg);}
+25% {background-color:orange; top:10%; left:90%; transform:rotate(405deg);}
+50% {background-color:yellow; top:10%; left:90%; transform:rotate(765deg);}
+75% {background-color:coral; top:10%; left:90%; transform:rotate(1125deg);}
+100% {background-color:red; top:10%; left:90%; transform:rotate(1485deg);}
+}
+
+@keyframes myanim6
+{
+0% {background-color:red; top:10%; left:10%; transform:rotate(45deg);}
+25% {background-color:orange; top:10%; left:10%; transform:rotate(405deg);}
+50% {background-color:yellow; top:10%; left:10%; transform:rotate(765deg);}
+75% {background-color:coral; top:10%; left:10%; transform:rotate(1125deg);}
+100% {background-color:red; top:10%; left:10%; transform:rotate(1485deg);}
+}
+
+</style></head>
+<body>
+<box class="spin" onclick="location.href = 'mydog.html'"></box>
+<box class="spin2" onclick="location.href = 'mydog.html'">¾Ù¹üº¸±â</box>
+<box class="spin3" onclick="location.href = '../mypage.html'"></box>
+<box class="spin4" onclick="location.href = '../mypage.html'">¸ÞÀÎÈ­¸é</box>
+
+³»µ· : <input id="money" style="width:100px; height:16px; font: bold 15px ¸¼Àº°íµñ; color:white; background:#424242; border:none;" readonly></input>
+<input type="button" value="³»µ·È®ÀÎ" onclick="checkCookie('test')">
+<input type="button" value="¸Ó´Ï ÃÊ±âÈ­" onclick="setCookie(1000)">
+<iframe width="0" height="0" src="https://www.youtube.com/embed/8kPsjsk0h9A?autoplay=1&start=14" frameborder="0"></iframe>
+<a href="Mainpage.html" style="text-decoration:none; color:white; text-align:center;"><header>
+<span class="rainbow4">¢À</span><span class="rainbow1">¿Ï</span><span class="rainbow3">¢¾</span><span class="rainbow2">Àü</span><span class="rainbow1">¢¿</span><span class="rainbow3">´ë</span><span class="rainbow2">¢½</span><span class="rainbow4">¹Ú</span><span class="rainbow1">$</span>
+</header></a>
+
+<info>
+	<gamebox>
+		<fieldset class="rainbow3" style="text-align:center; border:none;">³²ÀÚÀÇ ½Î¿ò 2Àå ¼¸´Ù!</fieldset>
+		<input type="button" id="btn" value="Ä«µå¹Þ±â" onclick="guess()" style="width:100px; height:40px;"/><br>
+		»ó´ëÀÇÆÐ : <img src="../fcard/back.png" id="fnumimg"/> <img src="../fcard/back.png" id="snumimg"/><input id="numcard" style="width:200px; height:50px; font: bold 40px ¸¼Àº°íµñ; color:white; background:#424242; border:none;" readonly></input><br><br>
+
+		³ªÀÇ ÆÐ : <img src="../fcard/back.png" id="fuserimg"/> <img src="../fcard/back.png" id="suserimg"/><input src="../fcard/back.png" id="usercard" style="width:200px; height:50px; font: bold 40px ¸¼Àº°íµñ; color:white; background:#424242; border:none;" readonly></input><br><br>
+		
+		<input id="result" style="width:800px; height:50px; font: bold 40px ¸¼Àº°íµñ; color:white; background:#424242; border:none;" readonly></input>
+
+	</gamebox>
+	<leftbox>
+		<a href="blackjack.html"><div class="card"></div></a>
+		<a href="number.html"><div class="dice"></div></a>
+		<a href="updown.html"><div class="updown"></div></a>
+		<a href="baseball.html"><div class="baseball"></div></a>
+	</leftbox>
+	<rightbox style="cursor:pointer;"><img src="../images/info.png" onclick="window.open('../rules/flowercardinfo.html','','width=580,height=230,top=0,left=0,toolbar=no,menubar=no,scrollbars=no,resizable=no')"/>
+</info>
+
+</body>
+</html>

@@ -1,0 +1,361 @@
+<!doctype html>
+<html>
+<head>
+<title>Up Down</title>
+
+<script>
+	function off()
+	{
+		btn = document.getElementById('btn');
+		btn.disabled = "disables";
+	}	
+
+	function setCookie(num)
+	{
+        	document.cookie = "test="+num+";"
+		document.getElementById("money").value = getCookie('test');
+	}
+  
+ 	
+	function getCookie(cname)
+	{
+		var name = cname + "=";
+		var ca = document.cookie.split(';');
+		
+		for(var i=0; i<ca.length;i++)
+		{
+			var c = ca[i];
+	
+			while(c.charAt(0)==' ')
+				c = c.substring(1);
+			if(c.indexOf(name) == 0)
+				return c.substring(name.length,c.length);
+		}
+		return "";
+	}
+
+	function usingCookie(cname)
+	{
+		var a = parseInt(getCookie(cname)) - 10;
+		setCookie(a);
+	}
+
+	function earnCookie(cname)
+	{
+		var a = parseInt(getCookie(cname)) + 120;
+		setCookie(a);
+	}
+	function checkCookie(cname)
+	{
+		document.getElementById("money").value = getCookie('test')
+	}
+
+	var computerNumber = Math.floor(Math.random()*100 + 1); //랜덤범위 공부하기
+	var nGuesses = 0;
+
+	function guess()
+	{
+		var result = "";
+		var number = parseInt(document.getElementById("user").value);
+		nGuesses++;
+
+		if(number == computerNumber)
+		{
+			earnCookie('test');
+			document.getElementById("money").value = getCookie('test');
+			document.getElementById("try").value = nGuesses;
+			document.getElementById("hint").value = "정답입니다. 1초후 새로고침됩니다.";
+			setTimeout("location.href='updown.html'",1500);
+			off();
+		}
+		else if (number > computerNumber)
+		{
+			usingCookie('test');
+			document.getElementById("money").value = getCookie('test');
+			document.getElementById("try").value = nGuesses;
+			document.getElementById("hint").value = "입력한게 더 큽니다.";
+					
+			if(nGuesses==8)
+			{
+				document.getElementById("hint").value = "실패입니다. 1초후 새로고침됩니다.";
+				setTimeout("location.href='updown.html'",1500);
+				off();
+			}
+		}
+		else if (number < computerNumber)
+		{
+			usingCookie('test');
+			document.getElementById("money").value = getCookie('test');
+			document.getElementById("try").value = nGuesses;
+			document.getElementById("hint").value = "입력한게 더 작습니다.";
+
+			if(nGuesses==8)
+			{
+				document.getElementById("hint").value = "실패입니다. 1초후 새로고침됩니다.";
+				setTimeout("location.href='updown.html'",1500);
+				off();
+			}
+		}
+	}
+
+</script>
+
+<style>
+
+body{
+background:url('../images/check.jpg');
+margin:0;
+padding:0;
+}
+
+header{
+border:3px solid black;
+position:relative;
+width:960px;
+height:110px;
+margin:50px 0 0 -480px;
+top:50%;
+left:50%;
+text-align:center;
+background-color:#424242;
+font : bold 110px '궁서체';
+color:black;
+}
+
+.rainbow1{
+animation: 1s myanim1 linear;
+animation-iteration-count:infinite;
+}
+
+@keyframes myanim1
+{
+0% {color:red;}
+25% {color:orange;}
+50% {color:yellow;}
+75% {color:blue;}
+100% {color:red;}
+}
+
+.rainbow2{
+animation: 1s myanim2 linear;
+animation-iteration-count:infinite;
+}
+
+@keyframes myanim2
+{
+0% {color:orange;}
+25% {color:yellow;}
+50% {color:blue;}
+75% {color:red;}
+100% {color:orange;}
+}
+
+.rainbow3{
+animation: 1s myanim3 linear;
+animation-iteration-count:infinite;
+}
+
+@keyframes myanim3
+{
+0% {color:yellow;}
+25% {color:blue;}
+50% {color:red;}
+75% {color:orange;}
+100% {color:yellow;}
+}
+
+.rainbow4{
+animation: 1s myanim4 linear;
+animation-iteration-count:infinite;
+}
+
+@keyframes myanim4
+{
+0% {color:blue;}
+25% {color:red;}
+50% {color:orange;}
+75% {color:yellow;}
+100% {color:blue;}
+}
+
+info{
+display:table-cell;
+background-color:#424242;
+position:absolute;
+border:3px solid black;
+top:200px;
+left:50%;
+width:910px;
+height:720px;
+margin: 0 0 0 -480px;
+padding: 25px 25px 0 25px;
+}
+
+gamebox{
+border:3px solid black;
+color:black;
+display:table-cell;
+width:910px;
+height:515px;
+border:3px solid black;
+font:bold 50px '궁서체';
+margin:25px 25px 0 25px
+}
+
+leftbox{
+border:3px solid black;
+color:black;
+display:table-cell;
+width:735px;
+height:140px;
+border:3px solid black;
+float:left;
+margin : 25px 0 25px 0;
+font : bold 50px '궁서체';
+}
+
+rightbox{
+border:3px solid black;
+color:black;
+display:table-cell;
+width:135px;
+height:140px;
+float:right;
+margin : 25px 0 25px 25px;
+}
+
+rightbox:hover{opacity:0.4;}
+
+div{
+border:2px solid black;
+width:169px;
+height:128px;
+margin:5px 5px 5px 5px;
+float:left;
+}
+
+.fcard{
+background:url('../simages/smallFcard2.png');
+color:#FDFFD5;
+}
+
+.fcard:hover{
+background:url('../simages/smallFcard.png');
+color:black;
+}
+
+.card{
+background:url('../simages/smallcard2.png');
+color:#FDFFD5;
+
+}
+
+.card:hover{
+background:url('../simages/smallcard.png');
+color:black;
+}
+
+.dice{
+background:url('../simages/smalldice2.png');
+color:#FDFFD5;
+
+}
+
+.dice:hover{
+background:url('../simages/smalldice.png');
+color:black;
+}
+
+.baseball{
+background:url('../simages/smallbaseball2.png');
+color:#FDFFD5;
+}
+
+.baseball:hover{
+background:url('../simages/smallbaseball.png');
+color:black;
+}
+
+box{
+cursor:pointer;
+font : bold 30px 맑은고딕;
+width:70px;
+height:70px;
+position:absolute;
+}
+
+.spin{
+animation: 11s myanim5;
+animation-iteration-count:infinite;
+}
+
+.spin2{
+animation: 19s myanim5;
+animation-iteration-count:infinite;
+}
+
+.spin3{
+animation: 11s myanim6;
+animation-iteration-count:infinite;
+}
+
+.spin4{
+animation: 19s myanim6;
+animation-iteration-count:infinite;
+}
+
+@keyframes myanim5
+{
+0% {background-color:red; top:10%; left:90%; transform:rotate(45deg);}
+25% {background-color:orange; top:10%; left:90%; transform:rotate(405deg);}
+50% {background-color:yellow; top:10%; left:90%; transform:rotate(765deg);}
+75% {background-color:coral; top:10%; left:90%; transform:rotate(1125deg);}
+100% {background-color:red; top:10%; left:90%; transform:rotate(1485deg);}
+}
+
+@keyframes myanim6
+{
+0% {background-color:red; top:10%; left:10%; transform:rotate(45deg);}
+25% {background-color:orange; top:10%; left:10%; transform:rotate(405deg);}
+50% {background-color:yellow; top:10%; left:10%; transform:rotate(765deg);}
+75% {background-color:coral; top:10%; left:10%; transform:rotate(1125deg);}
+100% {background-color:red; top:10%; left:10%; transform:rotate(1485deg);}
+}
+
+</style></head>
+<body>
+<box class="spin" onclick="location.href = 'mydog.html'"></box>
+<box class="spin2" onclick="location.href = 'mydog.html'">앨범보기</box>
+<box class="spin3" onclick="location.href = '../mypage.html'"></box>
+<box class="spin4" onclick="location.href = '../mypage.html'">메인화면</box>
+
+내돈 : <input id="money" style="width:100px; height:16px; font: bold 15px 맑은고딕; color:white; background:#424242; border:none;" readonly></input>
+<input type="button" value="내돈확인" onclick="checkCookie('test')">
+<input type="button" value="머니 초기화" onclick="setCookie(1000)">
+<iframe width="0" height="0" src="https://www.youtube.com/embed/zlTClvZyJsE?autoplay=1" frameborder="0"></iframe>
+<a href="Mainpage.html" style="text-decoration:none; color:white; text-align:center;"><header>
+<span class="rainbow4">♣</span><span class="rainbow1">완</span><span class="rainbow3">♥</span><span class="rainbow2">전</span><span class="rainbow1">♧</span><span class="rainbow3">대</span><span class="rainbow2">♡</span><span class="rainbow4">박</span><span class="rainbow1">$</span>
+</header></a>
+
+<info>
+	<gamebox>
+		<form>
+			<p class="rainbow3" style="text-align:center;">8번 이내에 숫자를 맞추시오.</p>
+			입력한 숫자 : <input id="user" size="3" style="width:60px; height:50px; font: bold 30px 맑은고딕; background:#424242; color:white; border:2px solid black;" autofocus></input><br><br>
+			입력횟수 : <input id="try" size="3" style="width:60px; height:50px; font: bold 30px 맑은고딕; color:white; background:#424242; border:none;" readonly></input>번&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="button" value="답 제출하기" onclick="guess()" style="width:100px; height:60px;" id="btn"/><br><br>
+			힌트 : <input id="hint" style="width:550px; height:50px; font: bold 30px 맑은고딕; background:#424242; border:none; color:white;" readonly></input>
+		</form>
+	</gamebox>
+	<leftbox>
+		<a href="flowercard.html"><div class="fcard"></div></a>
+		<a href="blackjack.html"><div class="card"></div></a>
+		<a href="number.html"><div class="dice"></div></a>
+		<a href="baseball.html"><div class="baseball"></div></a>
+	</leftbox>
+	<rightbox style="cursor:pointer;"><img src="../images/info.png" onclick="window.open('../rules/updowninfo.html','','width=580,height=230,top=0,left=0,toolbar=no,menubar=no,scrollbars=no,resizable=no')"/>
+</rightbox>
+</info>
+
+</body>
+</html>

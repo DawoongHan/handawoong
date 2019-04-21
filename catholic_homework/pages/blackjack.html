@@ -1,0 +1,695 @@
+<!doctype html>
+<html>
+<head>
+<title>BlackJack</title>
+
+<script>
+	function off()
+	{
+		btn = document.getElementById('btn');
+		btn.disabled = "disables";
+	}
+
+	function setCookie(num)
+	{
+        	document.cookie = "test="+num+";"
+		document.getElementById("money").value = getCookie('test');
+	}
+ 	
+	function getCookie(cname)
+	{
+		var name = cname + "=";
+		var ca = document.cookie.split(';');
+		
+		for(var i=0; i<ca.length;i++)
+		{
+			var c = ca[i];
+	
+			while(c.charAt(0)==' ')
+				c = c.substring(1);
+			if(c.indexOf(name) == 0)
+				return c.substring(name.length,c.length);
+		}
+		return "";
+	}
+
+	function usingCookie(cname)
+	{
+		var a = parseInt(getCookie(cname)) - 100;
+		setCookie(a);
+	}
+
+	function earnCookie(cname)
+	{
+		var a = parseInt(getCookie(cname)) + 100;
+		setCookie(a);
+	}
+	function checkCookie(cname)
+	{
+		document.getElementById("money").value = getCookie('test')
+	}
+
+	var cnt = 0;
+	var fnum = new Array("0", "0");
+	var snum = new Array("0", "0");
+	var tnum = new Array("0", "0");
+	var fuser = new Array("0", "0");
+	var suser = new Array("0", "0");
+	var tuser = new Array("0","0");
+	var numresult;
+	var userresult;
+	var numcard;
+	var usercard;
+
+	do{
+		cnt = 0;
+
+		fnum[0] = Math.floor(Math.random()*13 + 1);
+		fnum[1] = Math.floor(Math.random()*4 + 1);
+		
+		snum[0] = Math.floor(Math.random()*13 + 1);
+		snum[1] = Math.floor(Math.random()*4 + 1);
+
+		tnum[0] = Math.floor(Math.random()*13 + 1);
+		tnum[1] = Math.floor(Math.random()*4 + 1);
+
+		fuser[0] = Math.floor(Math.random()*13 + 1);
+		fuser[1] = Math.floor(Math.random()*4 + 1);
+		
+		suser[0] = Math.floor(Math.random()*13 + 1);
+		suser[1] = Math.floor(Math.random()*4 + 1);
+
+		tuser[0] = Math.floor(Math.random()*13 + 1);
+		tuser[1] = Math.floor(Math.random()*4 + 1);
+
+		//fnum~tuser 비교
+		if(fnum[0]==snum[0] && fnum[1]==snum[1])
+		{
+			cnt++;	
+		}
+		if(fnum[0]==tnum[0] && fnum[1]==tnum[1])
+		{
+			cnt++;	
+		}
+		if(fnum[0]==fuser[0] && fnum[1]==fuser[1])
+		{
+			cnt++;	
+		}
+		if(fnum[0]==suser[0] && fnum[1]==suser[1])
+		{
+			cnt++;	
+		}
+		if(fnum[0]==tuser[0] && fnum[1]==tuser[1])
+		{
+			cnt++;	
+		}
+
+		//snum~tuser 비교
+		if(snum[0]==tnum[0] && snum[1]==tnum[1])
+		{
+			cnt++;	
+		}
+		if(snum[0]==fuser[0] && snum[1]==fuser[1])
+		{
+			cnt++;	
+		}
+		if(snum[0]==suser[0] && snum[1]==suser[1])
+		{
+			cnt++;	
+		}
+		if(snum[0]==suser[0] && snum[1]==suser[1])
+		{
+			cnt++;	
+		}
+
+		//tnum~tuser 비교
+		if(tnum[0]==fuser[0] && tnum[1]==fuser[1])
+		{
+			cnt++;	
+		}
+		if(tnum[0]==suser[0] && tnum[1]==suser[1])
+		{
+			cnt++;	
+		}
+		if(tnum[0]==tuser[0] && tnum[1]==tuser[1])
+		{
+			cnt++;	
+		}
+
+		//fuser~tuser 비교
+		if(fuser[0]==suser[0] && fuser[1]==suser[1])
+		{
+			cnt++;	
+		}
+		if(fuser[0]==tuser[0] && fuser[1]==tuser[1])
+		{
+			cnt++;	
+		}
+
+		//마지막 비교
+		if(suser[0]==tuser[0] && suser[1]==tuser[1])
+		{
+			cnt++;	
+		}
+		
+	}while(cnt>0);
+
+	var fnumimg = "../card/"+fnum[1].toString()+fnum[0].toString()+".png";
+	var snumimg = "../card/"+snum[1].toString()+snum[0].toString()+".png";
+	var tnumimg = "../card/"+tnum[1].toString()+tnum[0].toString()+".png";
+	var fuserimg = "../card/"+fuser[1].toString()+fuser[0].toString()+".png";
+	var suserimg = "../card/"+suser[1].toString()+suser[0].toString()+".png";
+	var tuserimg = "../card/"+tuser[1].toString()+tuser[0].toString()+".png";
+	
+	//K,Q,J 일 경우 값을 10으로 변경
+	if(fnum[0]>10)
+	{
+		fnum[0]=10;
+	}
+	if(snum[0]>10)
+	{
+		snum[0]=10;
+	}
+	if(tnum[0]>10)
+	{
+		tnum[0]=10;
+	}
+	if(fuser[0]>10)
+	{
+		fuser[0]=10;
+	}
+	if(suser[0]>10)
+	{
+		suser[0]=10;
+	}
+	if(tuser[0]>10)
+	{
+		tuser[0]=10;
+	}
+
+	//룰 = 2장 받았을때 16이하면 한장 더받고, 17이상이면 유지, 버스트하지 않는이상 A는 11.
+	//컴퓨터의 패
+	
+	if(fnum[0]==1 && snum[0]==1) //처음받은 카드가 둘다 1일경우
+	{
+		if(tnum[0]==1)
+		{
+			numresult = 13
+		}
+		else if (tnum[0] < 10)
+		{
+			numresult = 12+tnum[0];
+		}
+		else
+		{
+			numresult = 2+tnum[0];
+		}
+	}
+	else if(fnum[0]==1 && snum[0]!=1) //첫 카드만 1일경우
+	{
+		fnum[0]=11;
+
+		if(fnum[0]+snum[0]<17)
+		{
+			if(fnum[0]+snum[0]+tnum[0] < 22)
+			{
+				numresult = fnum[0]+snum[0]+tnum[0];
+			}
+			else if(fnum[0]+snum[0]+tnum[0] > 21)
+			{
+				fnum[0]=1;
+				numresult = fnum[0]+snum[0]+tnum[0]
+			}
+		}
+		else
+		{
+			numresult = fnum[0]+snum[0];
+		}
+	}
+	else if(fnum[0]!=1 && snum[0]==1) //둘째 카드만 1일경우
+	{
+		snum[0]=11;
+
+		if(fnum[0]+snum[0]<17)
+		{
+			if(fnum[0]+snum[0]+tnum[0] < 22)
+			{
+				numresult = fnum[0]+snum[0]+tnum[0];
+			}
+			else
+			{
+				snum[0]=1;
+				numresult = fnum[0]+snum[0]+tnum[0];
+			}
+		}
+		else
+		{
+			numresult = fnum[0]+snum[0];
+		}
+	}
+	else
+	{
+		if(fnum[0]+snum[0]<17)
+		{
+			if(tnum[0]==1)
+			{
+				tnum[0]=11;
+			}
+
+			if(fnum[0]+snum[0]+tnum[0]>21)
+			{
+				if(tnum[0]==11)
+				{
+					tnum[0]=1;
+				}
+				numresult = fnum[0]+snum[0]+tnum[0];
+			}
+			else
+			{
+				numresult = fnum[0]+snum[0]+tnum[0];
+			}
+		}
+		else
+		{
+			numresult = fnum[0]+snum[0];
+		}
+		
+	}
+
+	//유저의 패
+	
+	if(fuser[0]==1 && suser[0]==1) //처음받은 카드가 둘다 1일경우
+	{
+		if(tuser[0]==1)
+		{
+			userresult = 13
+		}
+		else if (tuser[0] < 10)
+		{
+			userresult = 12+tuser[0];
+		}
+		else
+		{
+			userresult = 2+tuser[0];
+		}
+	}
+	else if(fuser[0]==1 && suser[0]!=1) //첫 카드만 1일경우
+	{
+		fuser[0]=11;
+
+		if(fuser[0]+suser[0]<17)
+		{
+			if(fuser[0]+suser[0]+tuser[0] < 22)
+			{
+				userresult = fuser[0]+suser[0]+tuser[0];
+			}
+			else if(fuser[0]+suser[0]+tuser[0] > 21)
+			{
+				fuser[0]=1;
+				userresult = fuser[0]+suser[0]+tuser[0]
+			}
+		}
+		else
+		{
+			userresult = fuser[0]+suser[0];
+		}
+	}
+	else if(fuser[0]!=1 && suser[0]==1) //둘째 카드만 1일경우
+	{
+		suser[0]=11;
+
+		if(fuser[0]+suser[0]<17)
+		{
+			if(fuser[0]+suser[0]+tuser[0] < 22)
+			{
+				userresult = fuser[0]+suser[0]+tuser[0];
+			}
+			else
+			{
+				suser[0]=1;
+				userresult = fuser[0]+suser[0]+tuser[0];
+			}
+		}
+		else
+		{
+			userresult = fuser[0]+suser[0];
+		}
+	}
+	else
+	{
+		if(fuser[0]+suser[0]<17)
+		{
+			if(tuser[0]==1)
+			{
+				tuser[0]=11;
+			}
+
+			if(fuser[0]+suser[0]+tuser[0]>21)
+			{
+				if(tuser[0]==11)
+				{
+					tuser[0]=1;
+				}
+				userresult = fuser[0]+suser[0]+tuser[0];
+			}
+			else
+			{
+				userresult = fuser[0]+suser[0]+tuser[0];
+			}
+		}
+		else
+		{
+			userresult = fuser[0]+suser[0];
+		}
+		
+	}
+
+	function guess()
+	{
+		if(fnum[0]+snum[0]>16)
+		{		
+			document.getElementById("fnumimg").src = fnumimg;
+			document.getElementById("snumimg").src = snumimg;
+			document.getElementById("tnumimg").src = "../card/back.png";
+		}
+		else
+		{
+			document.getElementById("fnumimg").src = fnumimg;
+			document.getElementById("snumimg").src = snumimg;
+			document.getElementById("tnumimg").src = tnumimg;
+		}
+
+		if(fuser[0]+suser[0]>16)
+		{		
+			document.getElementById("fuserimg").src = fuserimg;
+			document.getElementById("suserimg").src = suserimg;
+			document.getElementById("tuserimg").src = "../card/back.png";
+		}
+		else
+		{
+			document.getElementById("fuserimg").src = fuserimg;
+			document.getElementById("suserimg").src = suserimg;
+			document.getElementById("tuserimg").src = tuserimg;
+		}
+
+		if(numresult == userresult)
+		{
+			document.getElementById("result").value = "비겼습니다. 5초후 새로고침됩니다.";
+		}		
+		else if(numresult>21 && userresult>21)
+		{
+			document.getElementById("result").value = "비겼습니다. 5초후 새로고침됩니다.";
+		}
+		else if(numresult>21 && userresult<22)
+		{
+			document.getElementById("result").value = "이겼습니다. 5초후 새로고침됩니다.";
+			earnCookie('test');
+		}
+		else if(numresult<22 && userresult>21)
+		{
+			document.getElementById("result").value = "졌습니다. 5초후 새로고침됩니다.";
+			usingCookie('test');
+		}
+		else
+		{
+			if(numresult < userresult)
+			{
+				document.getElementById("result").value = "이겼습니다. 5초후 새로고침됩니다.";
+				earnCookie('test');
+			}
+			else
+			{
+				document.getElementById("result").value = "졌습니다. 5초후 새로고침됩니다.";
+				usingCookie('test');
+			}
+		}
+		
+		document.getElementById("numresult").value = numresult;
+		document.getElementById("userresult").value = userresult;
+
+		setTimeout("location.href='blackjack.html'",5000);
+		off();
+		
+	}
+
+</script>
+
+
+<style>
+
+body{
+background:url('../images/check.jpg');
+margin:0;
+padding:0;
+}
+
+header{
+border:3px solid black;
+position:relative;
+width:960px;
+height:110px;
+margin:50px 0 0 -480px;
+top:50%;
+left:50%;
+text-align:center;
+background-color:#424242;
+font : bold 110px '궁서체';
+color:black;
+}
+
+.rainbow1{
+animation: 1s myanim1 linear;
+animation-iteration-count:infinite;
+}
+
+@keyframes myanim1
+{
+0% {color:red;}
+25% {color:orange;}
+50% {color:yellow;}
+75% {color:blue;}
+100% {color:red;}
+}
+
+.rainbow2{
+animation: 1s myanim2 linear;
+animation-iteration-count:infinite;
+}
+
+@keyframes myanim2
+{
+0% {color:orange;}
+25% {color:yellow;}
+50% {color:blue;}
+75% {color:red;}
+100% {color:orange;}
+}
+
+.rainbow3{
+animation: 1s myanim3 linear;
+animation-iteration-count:infinite;
+}
+
+@keyframes myanim3
+{
+0% {color:yellow;}
+25% {color:blue;}
+50% {color:red;}
+75% {color:orange;}
+100% {color:yellow;}
+}
+
+.rainbow4{
+animation: 1s myanim4 linear;
+animation-iteration-count:infinite;
+}
+
+@keyframes myanim4
+{
+0% {color:blue;}
+25% {color:red;}
+50% {color:orange;}
+75% {color:yellow;}
+100% {color:blue;}
+}
+
+info{
+display:table-cell;
+background-color:#424242;
+position:absolute;
+border:3px solid black;
+top:200px;
+left:50%;
+width:910px;
+height:720px;
+margin: 0 0 0 -480px;
+padding: 25px 25px 0 25px;
+}
+
+gamebox{
+border:3px solid black;
+color:black;
+display:table-cell;
+width:910px;
+height:515px;
+border:3px solid black;
+font:bold 50px '궁서체';
+margin:25px 25px 0 25px
+}
+
+leftbox{
+border:3px solid black;
+color:black;
+display:table-cell;
+width:735px;
+height:140px;
+border:3px solid black;
+float:left;
+margin : 25px 0 25px 0;
+font : bold 50px '궁서체';
+}
+
+rightbox{
+border:3px solid black;
+color:black;
+display:table-cell;
+width:135px;
+height:140px;
+float:right;
+margin : 25px 0 25px 25px;
+}
+
+rightbox:hover{opacity:0.4;}
+
+div{
+border:2px solid black;
+width:169px;
+height:128px;
+margin:5px 5px 5px 5px;
+float:left;
+}
+
+.fcard{
+background:url('../simages/smallFcard2.png');
+color:#FDFFD5;
+}
+
+.fcard:hover{
+background:url('../simages/smallFcard.png');
+color:black;
+}
+
+.dice{
+background:url('../simages/smalldice2.png');
+color:#FDFFD5;
+
+}
+
+.dice:hover{
+background:url('../simages/smalldice.png');
+color:black;
+}
+
+.updown{
+background:url('../simages/smallupdown2.png');
+color:#FDFFD5;
+}
+
+.updown:hover{
+background:url('../simages/smallupdown.png');
+color:black;
+}
+
+.baseball{
+background:url('../simages/smallbaseball2.png');
+color:#FDFFD5;
+}
+
+.baseball:hover{
+background:url('../simages/smallbaseball.png');
+color:black;
+}
+
+box{
+cursor:pointer;
+font : bold 30px 맑은고딕;
+width:70px;
+height:70px;
+position:absolute;
+}
+
+.spin{
+animation: 11s myanim5;
+animation-iteration-count:infinite;
+}
+
+.spin2{
+animation: 19s myanim5;
+animation-iteration-count:infinite;
+}
+
+.spin3{
+animation: 11s myanim6;
+animation-iteration-count:infinite;
+}
+
+.spin4{
+animation: 19s myanim6;
+animation-iteration-count:infinite;
+}
+
+@keyframes myanim5
+{
+0% {background-color:red; top:10%; left:90%; transform:rotate(45deg);}
+25% {background-color:orange; top:10%; left:90%; transform:rotate(405deg);}
+50% {background-color:yellow; top:10%; left:90%; transform:rotate(765deg);}
+75% {background-color:coral; top:10%; left:90%; transform:rotate(1125deg);}
+100% {background-color:red; top:10%; left:90%; transform:rotate(1485deg);}
+}
+
+@keyframes myanim6
+{
+0% {background-color:red; top:10%; left:10%; transform:rotate(45deg);}
+25% {background-color:orange; top:10%; left:10%; transform:rotate(405deg);}
+50% {background-color:yellow; top:10%; left:10%; transform:rotate(765deg);}
+75% {background-color:coral; top:10%; left:10%; transform:rotate(1125deg);}
+100% {background-color:red; top:10%; left:10%; transform:rotate(1485deg);}
+}
+
+</style></head>
+<body>
+<box class="spin" onclick="location.href = 'mydog.html'"></box>
+<box class="spin2" onclick="location.href = 'mydog.html'">앨범보기</box>
+<box class="spin3" onclick="location.href = '../mypage.html'"></box>
+<box class="spin4" onclick="location.href = '../mypage.html'">메인화면</box>
+내돈 : <input id="money" style="width:100px; height:16px; font: bold 15px 맑은고딕; color:white; background:#424242; border:none;" readonly></input>
+<input type="button" value="내돈확인" onclick="checkCookie('test')">
+<input type="button" value="머니 초기화" onclick="setCookie(1000)">
+<iframe width="0" height="0" src="https://www.youtube.com/embed/h9512116vwY?autoplay=1&start=46" frameborder="0"></iframe>
+<a href="Mainpage.html" style="text-decoration:none; color:white; text-align:center;"><header>
+<span class="rainbow4">♣</span><span class="rainbow1">완</span><span class="rainbow3">♥</span><span class="rainbow2">전</span><span class="rainbow1">♧</span><span class="rainbow3">대</span><span class="rainbow2">♡</span><span class="rainbow4">박</span><span class="rainbow1">$</span>
+</header></a>
+
+<info>
+	<gamebox>
+		<fieldset class="rainbow3" style="text-align:center; border:none;">블랙잭! 딜러를 이겨라!</fieldset>
+		<input type="button" id="btn" value="카드받기" onclick="guess()" style="width:100px; height:40px;"/><br>
+		상대의패 : <img src="../card/back.png" id="fnumimg"/> <img src="../card/back.png" id="snumimg"/> <img src="../card/back.png" id="tnumimg"/>
+		<input id="numresult" style="width:200px; height:50px; font: bold 40px 맑은고딕; color:white; background:#424242; border:none;" readonly></input><br><br>
+
+		나의 패 : <img src="../card/back.png" id="fuserimg"/> <img src="../card/back.png" id="suserimg"/> <img src="../card/back.png" id="tuserimg"/>
+		<input id="userresult" style="width:200px; height:50px; font: bold 40px 맑은고딕; color:white; background:#424242; border:none;" readonly></input><br><br>
+	
+		<input id="result" style="width:700px; height:50px; font: bold 40px 맑은고딕; color:white; background:#424242; border:none;" readonly></input>
+	</gamebox>
+	<leftbox>
+		<a href="flowercard.html"><div class="fcard"></div></a>
+		<a href="number.html"><div class="dice"></div></a>
+		<a href="updown.html"><div class="updown"></div></a>
+		<a href="baseball.html"><div class="baseball"></div></a>
+	</leftbox>
+	<rightbox style="cursor:pointer;"><img src="../images/info.png" onclick="window.open('../rules/blackjackinfo.html','','width=580,height=230,top=0,left=0,toolbar=no,menubar=no,scrollbars=no,resizable=no')"/>
+</info>
+
+</body>
+</html>
